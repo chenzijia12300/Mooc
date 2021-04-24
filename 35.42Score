@@ -1,0 +1,44 @@
+package net.mooctest;
+
+import java.util.ArrayList;
+import java.util.List;
+import org.junit.Test;
+import static org.junit.Assert.*;
+import net.mooctest.KDTree.XYZPoint;
+
+public class KDTreeTest {
+
+    @Test(timeout = 4000)
+    public void test() {
+        List<XYZPoint> points = new ArrayList<XYZPoint>();
+        XYZPoint p1 = new XYZPoint(2, 3);
+    }
+
+    @Test
+    public void KDTreeTest(){
+        List<XYZPoint> points = new ArrayList<XYZPoint>();
+        points.add(new XYZPoint(1.0,2.0));
+        KDTree kd = new KDTree(points);
+        KDTree kdNull = new KDTree();
+
+        kd.add(null);
+        kd.contains(null);
+        kd.remove(null);
+
+        kd.add(new XYZPoint(1,2));
+        kd.add(new XYZPoint(3,4));
+        kd.contains(new XYZPoint(1,2));
+        kdNull.add(null);
+
+        kd.remove(new XYZPoint(1,2));
+
+
+        assertEquals(true,kd.add(new XYZPoint(1,2)));
+        assertEquals(false,kd.add(null));
+        assertEquals(false,kdNull.add(null));
+        assertEquals(false,kd.contains(null));
+        assertEquals(true,kd.contains(new XYZPoint(1,2)));
+        assertEquals(false,kd.remove(null));
+        assertEquals(true,kd.remove(new XYZPoint(3,4)));
+    }
+}
