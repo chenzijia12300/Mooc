@@ -1,0 +1,78 @@
+package net.mooctest;
+
+import org.junit.Test;
+import java.io.File;
+import static org.junit.Assert.*;
+import java.io.InputStream;
+import java.io.FileInputStream;
+
+public class DiffiTest {
+
+    @Test
+    public void test() {
+    	Option option = new Option(null);
+    	Diffi diffi = new Diffi(option);
+
+        Option firstOption = new Option("Tom","name",true,"","null");
+        Diffi firstDiffi = new Diffi(firstOption);
+        firstDiffi.addOption(firstOption);
+        firstDiffi.parse(new String[]{"Tom"});
+    }
+
+    @Test
+    public void optionTest(){
+        Option op = new Option("Tom",true,"","Tom");
+        op.getBeschriebung();
+        op.getDelim();
+        op.getBeschriebung();
+        op.isHasArg();
+        
+        // String value = op.getValue();
+        System.out.println(">>>>>>>>>>>>>>>>>>> -"+op.isHasArg());
+        // op.parse("Cat");
+        assertEquals("",op.getBeschriebung());
+        assertEquals(true,op.isHasArg());
+    }
+
+
+    @Test
+    public void ExtBoolArrayTest(){
+        ExtBoolArray ea = new ExtBoolArray(8);
+        ea.setTrue(0,7);
+        ea.isFalse(0,7);
+        ea.left();
+        // System.out.println(">>>>>>>>>>>>>>>>>>>>>>"+ ea.left());
+
+        assertEquals(false,ea.isFalse(1,2));
+    }
+
+
+    @Test
+    public void FileDiffPatchTest(){
+        FileDiffPatch.createPatch("/project/src/main/resource/Test.txt","/project/src/main/resource/Test2.txt","/project/src/main/resource/Test3.txt");
+        FileDiffPatch.createPatch("/project/src/main/resource/Test.txt","/project/src/main/resource/Test2.txt","/project/src/main/resource/Test3.txt",true);
+        FileDiffPatch.doPatch("/project/src/main/resource/Test.txt","/project/src/main/resource/Test2.txt","/project/src/main/resource/Test3.txt");
+        FileDiffPatch.doPatch("/project/src/main/resource/Test.txt","/project/src/main/resource/Test2.txt","/project/src/main/resource/Test3.txt",true);
+    }
+    
+
+    @Test
+    public void IndexedStringTest(){
+        IndexedString is = new IndexedString("123456789");
+        is.indexOf(new char[]{'1','2','3'});
+    }
+
+    @Test
+    public void RelativeStringTest(){
+        File file = new File("/project/src/main/resource/");
+        try{
+            RelativeString rs = new RelativeString(new FileInputStream(file));
+            rs.getAbsolute();
+            rs.toString();
+            rs.debugPrint();
+            System.out.println(">>>>>>>>>>>>>>>>>>>"+rs.getAbsolute());
+        }catch(Exception e){
+            System.out.println()
+        }
+    }
+}
