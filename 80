@@ -1,0 +1,90 @@
+package net.mooctest;
+
+import org.junit.Test;
+import static org.junit.Assert.*;
+import java.io.*;
+import java.io.File;
+import java.io.PrintStream;
+public class DiffiTest {
+
+    @Test
+    public void test() {
+    	Option option = new Option(null);
+    	Diffi diffi = new Diffi(option);
+    }
+
+    @Test
+    public void optionTest01(){
+        Option option = new Option("ABC");
+        try {
+            String value = option.getValue();
+        } catch (Exception e) {
+            assertTrue(e instanceof RuntimeException);
+            assertEquals("Option has no argument.",e.getMessage());
+        }
+        boolean d = option.is("A");
+        option.parse("ABC");
+    }
+
+    @Test
+    public void optionTest02(){
+        Option option = new Option("ABC", true, "ABC", "A");
+        try {
+            String value = option.getValue();
+        } catch (Exception e) {
+            assertTrue(e instanceof RuntimeException);
+            assertEquals("Option is not set.",e.getMessage());
+        }
+        option.is("A");
+        option.parse("ABCDEFG");
+    }   
+
+    @Test
+    public void optionTest03(){
+        Option option = new Option("");
+        option.is("ABC");
+    }
+
+
+    @Test
+    public void diffiTest01(){
+        Option option = new Option("ABC");
+        Diffi diffi = new Diffi(option);
+        diffi.addOption(new Option(""));
+        diffi.parse(new String[]{"ABC"});
+    }
+
+    @Test
+    public void boolArrayTest01(){
+        ExtBoolArray boolArray = new ExtBoolArray(10);
+        boolArray.setTrue(0,9);
+        boolean aFalse = boolArray.isFalse(0, 9);
+        assertFalse(aFalse);
+        int left = boolArray.left();
+        assertEquals(0,left);
+    }
+
+    @Test
+    public void boolArrayTest02(){
+        ExtBoolArray boolArray = new ExtBoolArray(10);
+        boolean aFalse = boolArray.isFalse(0, 9);
+        assertTrue(aFalse);
+        int left = boolArray.left();
+        assertEquals(10,left);
+    }
+
+    @Test
+    public void diffPatchTest(){
+        String originFile = System.getProperty("user.dir")+"/src/main/java/net/mooctest/test01.txt";
+        String newFile = System.getProperty("user.dir")+"/src/main/java/net/mooctest/test02.txt";
+        String patchFile = System.getProperty("user.dir")+"/src/main/java/net/mooctest/test03.txt";
+        FileDiffPatch.createPatch(originFile,newFile,patchFile,true);
+        FileDiffPatch.doPatch(originFile,newFile,patchFile,true);
+    }
+    @Test
+    public void indexStringTest01(){
+        IndexedString indexedString = new IndexedString("AAAAABBBBBBBCCCDEFG");
+        indexedString.indexOf(new char[]{'A','A','B','C','G'});
+    }
+
+}
