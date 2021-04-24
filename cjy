@@ -1,0 +1,12 @@
+ @Test
+    public void test() {
+        FileDiffPatch.createPatch("/project/src/main/resource/Test.txt","/project/src/main/resource/Test2.txt","/project/src/main/resource/Test3.txt");
+        FileDiffPatch.createPatch("/project/src/main/resource/Test.txt","/project/src/main/resource/Test2.txt","/project/src/main/resource/Test3.txt",true);
+    }
+    @Test
+    public void test2() {
+        FileDiffPatch.doPatch("/project/src/main/resource/Test.txt","/project/src/main/resource/Test2.txt","/project/src/main/resource/Test3.txt");
+        FileDiffPatch.doPatch("/project/src/main/resource/Test.txt","/project/src/main/resource/Test2.txt","/project/src/main/resource/Test3.txt",true);
+    }
+    
+    高分代码 直接80 记得创文件
