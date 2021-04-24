@@ -1,0 +1,3 @@
+import static org.junit.Assert.*;
+
+assertEquals(false,ea.isFalse(1,2));
